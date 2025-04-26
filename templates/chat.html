@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Personal Health Assistant</title>
+    <style>
+        body { font-family: sans-serif; padding: 1rem; background: #f5f5f5; }
+        .chat-box { max-width: 600px; margin: auto; background: white; padding: 1rem; border-radius: 10px; box-shadow: 0 0 10px #ccc; }
+        .chat-log { height: 300px; overflow-y: scroll; border: 1px solid #ddd; padding: 0.5rem; margin-bottom: 1rem; background: #fefefe; }
+        .chat-log p { margin: 0.5rem 0; }
+        .user { color: blue; }
+        .bot { color: green; }
+        .chat-box { background: #f4f6f9; padding: 10px; border-radius: 10px; margin-top: 10px; font-family: sans-serif; }
+        .user-msg { color: blue; margin-bottom: 10px; }
+        .bot-msg { color: green; }        
+    </style>
+</head>
+<body>
+
+    {% extends 'base.html' %}
+{% block title %}AI Health Assistant{% endblock %}
+{% block content %}
+<div class="container" style="max-width: 700px; margin: auto; padding: 2rem;">
+  <h2>👨‍⚕️ AI Health Assistant</h2>
+
+  <form id="chat-form" action="/get-gpt-response" method="POST">
+    <label for="patient-name"><strong>Select Your Name:</strong></label>
+    <select name="patient_name" id="patient-name" class="form-control" required>
+      {% for name in patient_names %}
+        <option value="{{ name }}">{{ name }}</option>
+      {% endfor %}
+    </select>
+
+    <br>
+
+    <label for="message"><strong>You:</strong></label>
+    <input type="text" id="message" name="message" class="form-control" placeholder="Describe your symptoms or ask something..." required>
+    
+    <br>
+    
+    <button type="submit" class="btn btn-primary">Send</button>
+  </form>
+
+  <br>
+  
+  <div id="response-box" style="white-space: pre-wrap; margin-top: 1rem; border: 1px solid #ccc; border-radius: 5px; padding: 1rem;">
+    <strong>Bot:</strong>
+    <p id="chat-output"></p>
+  </div>
+</div>
+
+<script>
+  document.getElementById('chat-form').onsubmit = async function(e) {
+    e.preventDefault();
+
+    const message = document.getElementById('message').value;
+    const patientName = document.getElementById('patient-name').value;
+
+    const res = await fetch("/get-gpt-response", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        message: message,
+        patient_name: patientName
+      })
+    });
+
+    const data = await res.json();
+    document.getElementById('chat-output').innerText = data.response;
+  };
+</script>
+{% endblock %}
+
+<p><a href="/home">🏠 Back to Home</a></p>
+</body>
+</html>

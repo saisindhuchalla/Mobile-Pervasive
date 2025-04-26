@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ log.patient_name }} - Profile</title>
+</head>
+<body style="font-family: sans-serif; padding: 1rem;">
+<h2>{{ log.patient_name }}'s Health Profile</h2>
+
+<p><strong>Age:</strong> {{ log.age }}</p>
+<p><strong>Gender:</strong> {{ log.gender }}</p>
+<p><strong>Allergies:</strong> {{ log.allergies }}</p>
+<p><strong>Current Medications:</strong> {{ log.medications }}</p>
+<p><strong>Latest Symptoms:</strong> {{ log.symptoms }}</p>
+<p><strong>Conditions:</strong> {{ log.conditions }}</p>
+<p><strong>Last Entry:</strong> {{ log.timestamp.strftime("%Y-%m-%d %H:%M") }}</p>
+
+<hr>
+<p><a href="/chat" class="button">💬 Talk to Chatbot</a></p>
+<p><a href="/entries" class="button">📋 View Full Health Log</a></p>
+<p><a href="/health-log" class="button">📝 Fill New Health Log</a></p>
+
+</body>
+</html>

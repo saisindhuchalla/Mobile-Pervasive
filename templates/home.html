@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Health Dashboard</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; padding: 1rem; background: #f0f4f7; }
+        .card {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h2 { margin-top: 0; }
+        a.button {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin-top: 0.5rem;
+            background-color: #3c9dd4;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Welcome to Your Health Dashboard</h2>
+
+    <form action="/home/patient" method="get">
+        <label for="patient">Select Patient:</label><br>
+        <select name="name" required>
+            {% for name in patient_names %}
+                <option value="{{ name }}">{{ name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">View</button>
+    </form>
+</div>
+
+</body>
+</html>

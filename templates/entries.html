@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Patient Logs</title>
+</head>
+<body style="font-family: sans-serif; padding: 1rem;">
+
+    <p><a href="/home">🏠 Back to Home</a></p>
+
+<h2>All Patient Entries</h2>
+{% for log in logs %}
+    <div style="border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem;">
+        <strong>{{ log.patient_name }}</strong> ({{ log.age }} / {{ log.gender }})<br>
+        <em>{{ log.timestamp.strftime("%Y-%m-%d %H:%M") }}</em><br><br>
+        <b>Allergies:</b> {{ log.allergies }}<br>
+        <b>Medications:</b> {{ log.medications }}<br>
+        <b>Symptoms:</b> {{ log.symptoms }}<br>
+        <b>Conditions:</b> {{ log.conditions }}<br>
+    </div>
+{% endfor %}
+
+</body>
+</html>
